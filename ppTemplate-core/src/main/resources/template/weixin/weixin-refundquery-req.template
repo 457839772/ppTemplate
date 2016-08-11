@@ -1,0 +1,10 @@
+<xml>
+   <appid>#appid#</appid>
+   <mch_id>#mch_id#</mch_id>
+   <nonce_str>#nonce_str#</nonce_str>
+   <out_refund_no>#out_refund_no#</out_refund_no>
+   <out_trade_no>#out_trade_no#</out_trade_no>
+   <refund_id>#refund_id#</refund_id>
+   <transaction_id>#transaction_id#</transaction_id>
+   <sign>#sign#</sign>
+</xml>

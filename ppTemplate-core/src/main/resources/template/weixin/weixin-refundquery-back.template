@@ -1,0 +1,16 @@
+<appid>#appid#</appid>~
+<mch_id>#mch_id#</mch_id>~
+<nonce_str>#nonce_str#</nonce_str>~
+<out_refund_no_0>#out_refund_no_0#</out_refund_no_0>~
+<out_trade_no>#out_trade_no#</out_trade_no>~
+<refund_count>#refund_count#</refund_count>~
+<refund_fee_0>#refund_fee#</refund_fee_0>~
+<refund_id_0>#refund_id_0#</refund_id_0>~
+<refund_status_0>#refund_status_0#</refund_status_0>~
+<return_code>#return_code#</return_code>~
+<return_msg>#return_msg#</return_msg>~
+<result_code>#result_code#</result_code>~
+<err_code>#err_code#</err_code>~
+<err_code_des>#err_code_des#</err_code_des>~
+<sign>#sign#</sign>~
+<transaction_id>#transaction_id#</transaction_id>~

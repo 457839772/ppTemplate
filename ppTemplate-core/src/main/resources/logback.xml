@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<configuration debug="false">
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="P_NAME" value="ppTemplate-core" /><!-- 项目名称 -->
+	<property name="LOG_HOME" value="../logs" />
+	<property name="LOG_CHARSET" value="UTF-8" />
+	<property name="LOG_MSG"
+		value="-|[%X{requestId}]|[%d{yyyy-MM-dd HH:mm:ss.SSS}]|[%thread]|[%-5p]|[%c-%L] ||| %m%n" />
+	<property name="LOG_DIR" value="${LOG_HOME}/%d{yyyyMMdd}" />
+	<property name="LOG_SIZE" value="30MB" /><!-- 日志分割大小 -->
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>${LOG_MSG}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 异常日志 -->
+	<appender name="ERROR_LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<Encoding>${LOG_CHARSET}</Encoding>
+		<File>${LOG_HOME}/ERROR_LOG_${P_NAME}.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_DIR}/ERROR_LOG_${P_NAME}%i.log
+			</FileNamePattern>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${LOG_SIZE}</maxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${LOG_MSG}</pattern>
+		</layout>
+	</appender>
+
+	<!-- 每日全量日志输出,按照日志分割大小分割,分割后的文件会存放在当日的文件夹中 -->
+	<appender name="BUSINESS" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<discriminator>
+			<Key>CHANNEL</Key>
+			<DefaultValue>${P_NAME}</DefaultValue>
+		</discriminator>
+		<sift>
+			<!-- 如果设置了${CHANNEL}特殊标识,还可以根据这个标识来切分日志文件 -->
+			<appender name="FILE-${CHANNEL}"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<File>${LOG_HOME}/${CHANNEL}_${P_NAME}.log</File>
+				<Append>true</Append>
+				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+					<FileNamePattern>${LOG_DIR}/${CHANNEL}_${P_NAME}%i.log
+					</FileNamePattern>
+					<TimeBasedFileNamingAndTriggeringPolicy
+						class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+						<maxFileSize>${LOG_SIZE}</maxFileSize>
+					</TimeBasedFileNamingAndTriggeringPolicy>
+				</rollingPolicy>
+				<encoder>
+					<pattern>${LOG_MSG}</pattern>
+				</encoder>
+			</appender>
+		</sift>
+	</appender>
+
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="org.apache.zookeeper" level="ERROR" />
+	<logger name="com.alibaba.dubbo.monitor" level="ERROR" />
+	<logger name="org.apache.commons" level="ERROR" />
+
+	<!-- 日志输出级别 -->
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ERROR_LOG" />
+		<appender-ref ref="BUSINESS" />
+	</root>
+</configuration>

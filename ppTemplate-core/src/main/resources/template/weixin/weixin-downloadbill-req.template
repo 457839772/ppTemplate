@@ -1,0 +1,8 @@
+<xml>
+   <appid>#appid#</appid>
+   <bill_date>#bill_date#</bill_date>
+   <bill_type>#bill_type#</bill_type>
+   <mch_id>#mch_id#</mch_id>
+   <nonce_str>#nonce_str#</nonce_str>
+   <sign>#sign#</sign>
+</xml>

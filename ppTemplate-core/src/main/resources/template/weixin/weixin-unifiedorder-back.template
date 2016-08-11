@@ -1,0 +1,11 @@
+<return_code>#return_code#</return_code>~
+<return_msg>#return_msg#</return_msg>~
+<appid>#appid#</appid>~
+<mch_id>#mch_id#</mch_id>~
+<nonce_str>#nonce_str#</nonce_str>~
+<sign>#sign#</sign>~
+<result_code>#result_code#</result_code>~
+<err_code>#err_code#</err_code>~
+<err_code_des>#err_code_des#</err_code_des>~
+<trade_type>#trade_type#</trade_type>~
+<prepay_id>#prepay_id#</prepay_id>

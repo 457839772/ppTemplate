@@ -1,0 +1,12 @@
+version=#version#&
+encoding=#encoding#&
+certId=#certId#&
+signature=#signature#&
+signMethod=#signMethod#&
+txnType=#txnType#&
+txnSubType=#txnSubType#&
+bizType=#bizType#&
+merId=#merId#&
+accessType=#accessType#&
+orderId=#orderId#&
+txnTime=#txnTime#
